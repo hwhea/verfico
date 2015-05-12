@@ -5,14 +5,11 @@ require "settings.php";
 //Get email and authcode from the URL.
 $e = $_GET['e'];
 $authcode = $_GET['auth'];
-
-$stmt = $db->prepare("SELECT * FROM " . $_SESSION['ver_tablename'] . "WHERE uid = ? AND verified = 0");
-$stmt->bind_param("ss",$uid);
+$tbl = $_SESSION['ver_tablename'];
 $uid = $_SESSION['ver_uid'];
-$stmt->execute();
-
+$stmt = $db->query("SELECT * FROM $tbl WHERE uid = $uid AND verified = 0");
 $rows = $stmt->num_rows;
-
+echo $rows;
 if ($rows > 0) { //if authcode posted = authcode in db where email = $e.
 	$verify = $ver->verifyUser($uid);
 	if($verify){
@@ -28,7 +25,6 @@ if ($rows > 0) { //if authcode posted = authcode in db where email = $e.
 	$error = 1;
 }
 
-echo $error . if(empty($error)){echo "There were no errors.";}else{echo "An error occured";}; 
-
+echo $error;
 
 ?>
