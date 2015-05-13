@@ -13,7 +13,6 @@ if($ver->isVerified()){
 	echo "The current user is verified.";
 	$userVerified = true;
 } else {
-	echo $_SESSION['ver_uid'] . "<br>";
 	echo "The user is not verified.";
 	$userVerified = false;
 }
@@ -25,6 +24,7 @@ if($userVerified){
 	<?php
 }else{
 	?>
+	<p>User is not verified, please verify:</p>
 	<form action="" method="post">
 		<input type="email" name="email" placeholder="Email Address">
 		<input type="submit" name="submit" value="Send Verification Email">
